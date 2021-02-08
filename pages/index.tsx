@@ -1,5 +1,5 @@
 import React from "react"
-// import ProtectedRoute from '../components/Route';
+// import ProtectedRoute from '../components/ProtectedRoute';
 import ReactDOM from 'react-dom';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
