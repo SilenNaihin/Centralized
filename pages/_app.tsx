@@ -3,14 +3,17 @@ import { useEffect } from "react"
 import analyticsClient from "../firebase/analyticsClient"
 import firestoreClient from "../firebase/firestoreClient"
 import "../styles/index.css"
+import AuthProvider from "../hooks/useAuth"
 
-function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+export default function MyApp({ Component, pageProps }: AppProps): any {
   useEffect(() => {
     analyticsClient.setAnalyticsCollectionEnabled(true)
     ;(window as any).firestoreClient = firestoreClient // eslint-disable-line @typescript-eslint/no-explicit-any
   }, [])
 
-  return <Component {...pageProps} />
+  return (
+  <AuthProvider>
+    <Component {...pageProps} />
+  </AuthProvider>
+    )
 }
-
-export default MyApp

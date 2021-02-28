@@ -2,8 +2,12 @@ import React from "react";
 import Link from 'next/link';
 import Googleauth from 'components/Auth/Gauth';
 import SignUpForm from 'components/Forms/signupform';
+import route from "next/router";
+import {useAuth} from 'hooks/useAuth'
 
-export default function SignUp(): JSX.Element {
+export default function SignUp(): JSX.Element{
+    const auth = useAuth();
+    if (auth.user) route.push('/dashboard');
     return (
         <>
         <div className="flex justify-center mt-14 mb-6 h-20 items-center">

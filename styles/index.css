@@ -1,12 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@tailwind screens;
+@tailwind screen;
 
-body {
-  background-color: #fdfdfd;
-}
-
-.custom_shadow {
+.custom_shadow{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }

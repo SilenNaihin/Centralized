@@ -1,6 +1,8 @@
+import authClient from "firebase/authClient";
+import { useAuth } from "hooks/useAuth";
+import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from 'react-hook-form';
-import {useAuth} from 'hooks/useAuth'
 
 interface SignUpData {
     name: string;
@@ -8,40 +10,21 @@ interface SignUpData {
     password: string;
    }
 
-export default function SignUpForm(): JSX.Element {
+export default function LoginForm(): JSX.Element {
     const {register, errors, handleSubmit} = useForm();
-    const {signUp} = useAuth();
-    
+    const auth = useAuth();
+    const router = useRouter();
 
     // what to de when you submit
     const onSubmit = (data: SignUpData) => {
-        console.log(data);
-        return signUp(data).then((user)=>{
-            console.log(user)
-        })
-        
+        return auth.signIn(data).then(() => {
+            router.push('/dashboard')
+        });
     };
 
     return (
         <>
     <form onSubmit={handleSubmit(onSubmit)}>
-        {/* Name */}
-            <label htmlFor="name"></label>
-            <input
-                className="block mx-auto border-b border-black w-4/5 mb-4"
-                type="text"
-                name="name"
-                placeholder="Name"
-                id = "name"
-                ref={register({
-                    required: 'Please enter an name',      
-                   })}
-            />
-            {errors.name && (
-                <div className="text-xs text-red-600 mb-4 text-center">
-                {errors.name.message}
-                 </div>
-            )}
         {/* Email */}
             <label htmlFor="email"></label>  
             <input
@@ -59,7 +42,7 @@ export default function SignUpForm(): JSX.Element {
                    })}
             />
             {errors.email && (
-                <div className="text-xs text-red-600 mb-4 text-center">
+                <div className="mt-2 text-xs text-red-600 mb-4 text-center">
                 {errors.email.message}
                 </div>
             )}
@@ -80,15 +63,15 @@ export default function SignUpForm(): JSX.Element {
                    })}
             />
             {errors.password && (
-                <div className="text-xs text-red-600 mb-4 text-center">
+                <div className="mt-2 text-xs text-red-600 mb-4 text-center">
                 {errors.password.message}
                 </div>
             )}
             <button 
                 type="submit" 
-                className="flex focus:outline-none bg-gradient-to-r from-blue-400 to-blue-800 justify-center items-center w-1/2 h-9 rounded-xl mx-auto text-gray-50"
+                className="focus:outline-none flex bg-gradient-to-r from-blue-400 to-blue-800 justify-center items-center w-1/2 h-9 rounded-xl mx-auto text-gray-50"
             >
-                Sign up with email
+                Continue with email
             </button>
     </form>
     </>
